@@ -51,7 +51,12 @@ export default function HomeScreen() {
 
     while (currentIndex < text.length) {
       let found = false;
-      let nearestMatch = { index: text.length, length: 0, content: '', type: 'text' };
+      let nearestMatch = {
+        index: text.length,
+        length: 0,
+        content: '',
+        type: 'text' as 'text' | 'bold' | 'italic' | 'link'
+      };
 
       // Find the nearest formatting mark
       for (const pattern of patterns) {
@@ -164,27 +169,17 @@ export default function HomeScreen() {
   }, []);
 
   const renderFormattedText = (segment: FormattedText) => {
+    const key = `${segment.type}-${segment.content}-${Math.random()}`;
+
     switch (segment.type) {
       case 'bold':
-        return (
-          <ThemedText key={Math.random()} style={styles.bold}>
-            {segment.content}
-          </ThemedText>
-        );
+        return <ThemedText key={key} style={styles.bold}>{segment.content}</ThemedText>;
       case 'italic':
-        return (
-          <ThemedText key={Math.random()} style={styles.italic}>
-            {segment.content}
-          </ThemedText>
-        );
+        return <ThemedText key={key} style={styles.italic}>{segment.content}</ThemedText>;
       case 'link':
-        return (
-          <ThemedText key={Math.random()} style={styles.link}>
-            {segment.content}
-          </ThemedText>
-        );
+        return <ThemedText key={key} style={styles.link}>{segment.content}</ThemedText>;
       default:
-        return segment.content;
+        return <ThemedText key={key}>{segment.content}</ThemedText>;
     }
   };
 
@@ -307,8 +302,8 @@ const styles = StyleSheet.create({
     height: 44,
   },
   logo: {
-    width: 150,
-    height: 50,
+    width: 120,
+    height: 24,
     marginRight: 8,
   },
   headerTitle: {
@@ -349,44 +344,49 @@ const styles = StyleSheet.create({
   description: {
     backgroundColor: '#f8f9fa',
     padding: 12,
-    margin: 16,
+    marginHorizontal: 16,
+    marginTop: 8,
     borderRadius: 4,
   },
   descriptionText: {
-    fontSize: 14,
+    fontSize: 13,
     color: '#444',
+    lineHeight: 18,
   },
   infoBox: {
     margin: 16,
-    padding: 16,
+    padding: 12,
     backgroundColor: '#f8f9fa',
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#e0e0e0',
+    marginTop: 8,
   },
   infoRow: {
     flexDirection: 'row',
-    paddingVertical: 8,
+    paddingVertical: 6,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#e0e0e0',
   },
   infoLabel: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 13,
     color: '#666',
+    paddingRight: 8,
   },
   infoValue: {
     flex: 2,
-    fontSize: 14,
+    fontSize: 13,
     color: '#333',
   },
   content: {
     padding: 16,
   },
   paragraph: {
-    fontSize: 16,
+    fontSize: 15,
     lineHeight: 24,
     marginBottom: 16,
+    color: '#333',
   },
   bold: {
     fontWeight: 'bold',
