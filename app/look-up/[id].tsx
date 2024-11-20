@@ -121,12 +121,14 @@ export default function LookUp() {
             <Stack.Screen options={{
                 headerTitle: topic.name,
                 headerRight: () => (
-                    <Ionicons
-                        name="share-outline"
-                        size={24}
-                        color="#007AFF"
-                        style={styles.headerIcon}
-                    />
+                    <ThemedView style={styles.headerIconContainer}>
+                        <Ionicons
+                            name="close-sharp"
+                            size={24}
+                            color="#666"
+                            style={styles.headerIcon}
+                        />
+                    </ThemedView>
                 ),
             }} />
             <ScrollView
@@ -240,9 +242,6 @@ const styles = StyleSheet.create({
         fontSize: 15,
         color: '#666',
     },
-    headerIcon: {
-        marginRight: 16,
-    },
     iconContainer: {
         width: 40,
         height: 40,
@@ -250,5 +249,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#f5f5f5',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    headerIconContainer: {
+        backgroundColor: '#eaeaea',
+        height: 32,
+        width: 32,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 40,
     },
 }); 
