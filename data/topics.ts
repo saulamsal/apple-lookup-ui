@@ -73,6 +73,27 @@ export const topics: Record<string, Topic> = {
             wikipedia: 'Elon_Musk'
         }
     },
+    spacex: {
+        id: 'spacex',
+        name: 'SpaceX',
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SpaceX-Logo-Xonly.svg/150px-SpaceX-Logo-Xonly.svg.png',
+        description: 'American aerospace manufacturer and space transport company',
+        facts: {
+            'Founded': 'March 14, 2002',
+            'Headquarters': 'Hawthorne, California',
+            'CEO': 'Elon Musk',
+            'Employees': '13,000+',
+            'Valuation': '$180 billion (2024)'
+        },
+        socialMedia: {
+            twitter: '@SpaceX',
+            instagram: '@spacex'
+        },
+        links: {
+            website: 'spacex.com',
+            wikipedia: 'SpaceX'
+        }
+    },
     tesla: {
         id: 'tesla',
         name: 'Tesla, Inc.',
