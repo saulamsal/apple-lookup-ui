@@ -95,7 +95,7 @@ export default function WikiArticle() {
                     scrollEventThrottle={16}
                 >
                     <ThemedView style={styles.articleHeader}>
-                        <ThemedText style={styles.title}>{key.replace(/_/g, ' ')}</ThemedText>
+                        {/* <ThemedText style={styles.title}>{key.replace(/_/g, ' ')}</ThemedText> */}
                         <ThemedView style={styles.tabs}>
                             <ThemedText style={styles.tab}>Article</ThemedText>
                             <ThemedText style={styles.tabInactive}>Talk</ThemedText>
