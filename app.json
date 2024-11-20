@@ -36,6 +36,7 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "assets": ["./assets/images/"]
   }
 }
