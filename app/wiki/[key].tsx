@@ -5,6 +5,9 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { FormattedText, ParsedContent, WikiResponse, parseWikiText } from '@/utils/wiki';
 import { Stack } from 'expo-router';
+import { SelectableText } from '@/components/SelectableText';
+import { router } from 'expo-router';
+
 export default function WikiArticle() {
     const { key } = useLocalSearchParams<{ key: string }>();
     const [wikiContent, setWikiContent] = useState<ParsedContent | null>(null);
@@ -33,16 +36,22 @@ export default function WikiArticle() {
 
     const renderFormattedText = (segment: FormattedText) => {
         const key = `${segment.type}-${segment.content}-${Math.random()}`;
+        const baseProps = {
+            key,
+            onLongPress: (selectedText: string) => {
+                router.push(`/look-up/${encodeURIComponent(selectedText)}`);
+            }
+        };
 
         switch (segment.type) {
             case 'bold':
-                return <ThemedText key={key} style={styles.bold}>{segment.content}</ThemedText>;
+                return <SelectableText {...baseProps} style={styles.bold}>{segment.content}</SelectableText>;
             case 'italic':
-                return <ThemedText key={key} style={styles.italic}>{segment.content}</ThemedText>;
+                return <SelectableText {...baseProps} style={styles.italic}>{segment.content}</SelectableText>;
             case 'link':
-                return <ThemedText key={key} style={styles.link}>{segment.content}</ThemedText>;
+                return <SelectableText {...baseProps} style={styles.link}>{segment.content}</SelectableText>;
             default:
-                return <ThemedText key={key}>{segment.content}</ThemedText>;
+                return <SelectableText {...baseProps}>{segment.content}</SelectableText>;
         }
     };
 

@@ -1,8 +1,36 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
 import { router } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+
+const topStories = [
+  {
+    id: '1',
+    title: 'Linda_McMahon_Selected_as_Secretary_of_Education_Nominee',
+    subtitle: 'Former WWE executive chosen to lead department President Donald Trump plans to dissolve'
+  },
+  {
+    id: '2',
+    title: 'SpaceX_Starship_Test_Flight_Success',
+    subtitle: 'Massive rocket achieves milestone launch with Elon Musk & Co. in attendance'
+  },
+  {
+    id: '3',
+    title: 'Baltic_Sea_Fiber_Optic_Cable_Incident',
+    subtitle: 'Russia accused of sabotaging underwater communications infrastructure'
+  },
+  {
+    id: '4',
+    title: 'Rafael_Nadal_Career_Concludes',
+    subtitle: 'Tennis legend ends 20-year career with emotional Davis Cup loss'
+  },
+  {
+    id: '5',
+    title: 'Delta_Air_Lines_Shake_Shack_Partnership',
+    subtitle: 'Airline to offer premium burger service on select flights'
+  }
+];
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
@@ -20,8 +48,12 @@ export default function HomeScreen() {
     router.push(`/wiki/${formattedQuery}`);
   };
 
+  const handleStoryPress = (title: string) => {
+    router.push(`/wiki/${title}`);
+  };
+
   return (
-    <ThemedView style={styles.container}>
+    <ScrollView style={styles.container}>
       <ThemedView style={styles.searchContainer}>
         <ThemedView style={styles.headerContent}>
           <Image
@@ -48,8 +80,22 @@ export default function HomeScreen() {
         >
           <ThemedText style={styles.buttonText}>Search</ThemedText>
         </TouchableOpacity>
+
+        <ThemedView style={styles.topStoriesContainer}>
+          <ThemedText style={styles.topStoriesTitle}>Top Stories From ExpoPedia</ThemedText>
+          {topStories.map((story) => (
+            <ThemedView
+              key={story.id}
+              style={styles.storyItem}
+              onPress={() => handleStoryPress(story.title)}
+            >
+              <ThemedText style={styles.storyTitle}>{story.title.replace(/_/g, ' ')}</ThemedText>
+              <ThemedText style={styles.storySubtitle}>{story.subtitle}</ThemedText>
+            </ThemedView>
+          ))}
+        </ThemedView>
       </ThemedView>
-    </ThemedView>
+    </ScrollView>
   );
 }
 
@@ -111,4 +157,27 @@ const styles = StyleSheet.create({
     height: 50,
     marginRight: 8,
   },
+  topStoriesContainer: {
+    marginTop: 32,
+    width: '100%',
+  },
+  topStoriesTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  storyItem: {
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  storyTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    marginBottom: 4,
+  },
+  storySubtitle: {
+    fontSize: 16,
+    color: '#666',
+  }
 });
