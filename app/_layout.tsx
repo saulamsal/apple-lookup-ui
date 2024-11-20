@@ -31,6 +31,15 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false, headerBackTitle: '', title: '' }} />
+        <Stack.Screen name="look-up/[id]" options={{
+          presentation: 'formSheet',
+          gestureDirection: "vertical",
+          animation: "slide_from_bottom",
+          headerShown: false,
+          sheetGrabberVisible: true,
+          sheetInitialDetentIndex: 0,
+          sheetAllowedDetents: [0.5, 1.0]
+        }} />
 
         <Stack.Screen name="+not-found" />
       </Stack>

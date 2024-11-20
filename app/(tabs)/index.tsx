@@ -1,124 +1,43 @@
 import 'react-native-get-random-values';
 import { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Pressable, Text, Platform } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Pressable, Text, Platform, FlatList } from 'react-native';
 import { router } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+import { topics } from '@/data/topics';
 
 const topStories = [
   {
     id: '1',
     title: 'Linda_McMahon_Selected_as_Secretary_of_Education_Nominee',
-    subtitle: 'Former WWE executive chosen to lead department President Donald Trump plans to dissolve'
+    subtitle: 'Former WWE executive chosen to lead department President Donald Trump plans to dissolve',
+    relatedTopics: ['wwe', 'trump']
   },
   {
     id: '2',
     title: 'SpaceX_Starship_Test_Flight_Success',
-    subtitle: 'Massive rocket achieves milestone launch with Elon Musk & Co. in attendance'
+    subtitle: 'Massive rocket achieves milestone launch with Elon Musk & Co. in attendance',
+    relatedTopics: ['musk', 'spacex', 'tesla']
   },
   {
     id: '3',
     title: 'Baltic_Sea_Fiber_Optic_Cable_Incident',
-    subtitle: 'Russia accused of sabotaging underwater communications infrastructure'
+    subtitle: 'Russia accused of sabotaging underwater communications infrastructure',
+    relatedTopics: ['russia', 'baltic']
   },
   {
     id: '4',
     title: 'Rafael_Nadal_Career_Concludes',
-    subtitle: 'Tennis legend ends 20-year career with emotional Davis Cup loss'
+    subtitle: 'Tennis legend ends 20-year career with emotional Davis Cup loss',
+    relatedTopics: ['nadal', 'davis-cup']
   },
   {
     id: '5',
     title: 'Delta_Air_Lines_Shake_Shack_Partnership',
-    subtitle: 'Airline to offer premium burger service on select flights'
+    subtitle: 'Airline to offer premium burger service on select flights',
+    relatedTopics: ['delta', 'shake-shack']
   }
 ];
-
-interface WebTextProps {
-  style: any;
-  children: React.ReactNode;
-}
-
-const WebText = ({ style, children }: WebTextProps) => (
-  Platform.OS === 'web'
-    ? (
-      <span
-        style={{
-          ...StyleSheet.flatten(style),
-          cursor: 'text',
-          userSelect: 'text',
-          WebkitUserSelect: 'text',
-          MozUserSelect: 'text',
-          msUserSelect: 'text',
-          display: 'block',
-          fontFamily: style.fontFamily || 'inherit'
-        }}
-      >
-        {children}
-      </span>
-    )
-    : <Text style={style}>{children}</Text>
-);
-
-interface SelectableTextProps {
-  style?: any;
-  children: React.ReactNode;
-}
-
-const SelectableText = ({ children, style }: SelectableTextProps) => {
-  const handleContextMenu = (e: any) => {
-    if (Platform.OS === 'web') {
-      const selection = window.getSelection()?.toString();
-      if (selection) {
-        // You can customize this menu further
-        const menu = document.createElement('div');
-        menu.innerHTML = `
-          <div style="position: fixed; background: white; border: 1px solid #ccc; padding: 5px;">
-            <div>Copy</div>
-            <div>Look Up</div>
-          </div>
-        `;
-        document.body.appendChild(menu);
-        // Position menu at cursor
-        menu.style.left = `${e.pageX}px`;
-        menu.style.top = `${e.pageY}px`;
-
-        // Remove menu when clicking outside
-        const removeMenu = () => {
-          document.body.removeChild(menu);
-          document.removeEventListener('click', removeMenu);
-        };
-        document.addEventListener('click', removeMenu);
-      }
-    }
-  };
-
-  if (Platform.OS === "ios") {
-    return (
-      <TextInput
-        multiline
-        editable={false}
-        style={style}
-        contextMenuHidden={false}
-        selectionColor="rgba(51, 102, 204, 0.2)"
-        selectTextOnFocus={true}
-        menuItems={[
-          { title: 'Look Up', systemIcon: 'doc.text.magnifyingglass' }
-        ]}
-      >
-        {children}
-      </TextInput>
-    );
-  }
-  return (
-    <Text
-      selectable
-      style={style}
-      onContextMenu={handleContextMenu}
-    >
-      {children}
-    </Text>
-  );
-};
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
@@ -173,12 +92,36 @@ export default function HomeScreen() {
           <ThemedText style={styles.topStoriesTitle}>Top Stories From ExpoPedia</ThemedText>
           {topStories.map((story) => (
             <ThemedView key={story.id} style={styles.storyItem}>
-              <SelectableText style={styles.storyTitle}>
+              <ThemedText style={styles.storyTitle}>
                 {story.title.replace(/_/g, ' ')}
-              </SelectableText>
-              <SelectableText style={styles.storySubtitle}>
+              </ThemedText>
+              <ThemedText style={styles.storySubtitle}>
                 {story.subtitle}
-              </SelectableText>
+              </ThemedText>
+              <FlatList
+                data={story.relatedTopics}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                style={styles.topicsContainer}
+                renderItem={({ item: topicId }) => {
+                  const topic = topics[topicId];
+                  return (
+                    <TouchableOpacity
+                      style={styles.topicChip}
+                      onPress={() => router.push(`/look-up/${topicId}`)}
+                    >
+                      {topic?.logo && (
+                        <Image
+                          source={{ uri: topic.logo }}
+                          style={styles.topicIcon}
+                        />
+                      )}
+                      <ThemedText style={styles.topicText}>{topic.name}</ThemedText>
+                    </TouchableOpacity>
+                  );
+                }}
+                keyExtractor={item => item}
+              />
             </ThemedView>
           ))}
         </ThemedView>
@@ -271,5 +214,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#666',
     letterSpacing: -0.5,
+  },
+  topicsContainer: {
+    marginTop: 8,
+  },
+  topicChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+    borderRadius: 16,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    marginRight: 8,
+  },
+  topicIcon: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    marginRight: 6,
+  },
+  topicText: {
+    fontSize: 13,
+    color: '#666',
   }
 });
