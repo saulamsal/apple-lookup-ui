@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Pressable, Text } from 'react-native';
 import { router } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -84,13 +84,13 @@ export default function HomeScreen() {
         <ThemedView style={styles.topStoriesContainer}>
           <ThemedText style={styles.topStoriesTitle}>Top Stories From ExpoPedia</ThemedText>
           {topStories.map((story) => (
-            <ThemedView
-              key={story.id}
-              style={styles.storyItem}
-              onPress={() => handleStoryPress(story.title)}
-            >
-              <ThemedText style={styles.storyTitle}>{story.title.replace(/_/g, ' ')}</ThemedText>
-              <ThemedText style={styles.storySubtitle}>{story.subtitle}</ThemedText>
+            <ThemedView key={story.id} style={styles.storyItem}>
+              <Text selectable style={[styles.storyTitle, { color: '#000' }]}>
+                {story.title.replace(/_/g, ' ')}
+              </Text>
+              <Text selectable style={[styles.storySubtitle, { color: '#666' }]}>
+                {story.subtitle}
+              </Text>
             </ThemedView>
           ))}
         </ThemedView>
