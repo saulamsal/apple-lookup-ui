@@ -105,6 +105,7 @@ export default function HomeScreen() {
                 style={styles.topicsContainer}
                 renderItem={({ item: topicId }) => {
                   const topic = topics[topicId];
+                  if (!topic) return null;
                   return (
                     <TouchableOpacity
                       style={styles.topicChip}

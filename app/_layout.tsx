@@ -35,7 +35,7 @@ export default function RootLayout() {
           presentation: 'formSheet',
           gestureDirection: "vertical",
           animation: "slide_from_bottom",
-          headerShown: false,
+          // headerShown: false,
           sheetGrabberVisible: true,
           sheetInitialDetentIndex: 0,
           sheetAllowedDetents: [0.5, 1.0]
