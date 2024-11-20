@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    paddingTop: 100,
   },
   searchContainer: {
     flex: 1,
@@ -148,7 +149,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    paddingHorizontal: 16,
+    // paddingHorizontal: 16,
     height: 44,
   },
 
@@ -162,9 +163,10 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   topStoriesTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 15,
     marginBottom: 16,
+    opacity: 0.6,
+    textTransform: 'uppercase',
   },
   storyItem: {
     padding: 16,
@@ -175,9 +177,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '800',
     marginBottom: 4,
+    letterSpacing: -0.5,
   },
   storySubtitle: {
     fontSize: 16,
     color: '#666',
+    letterSpacing: -0.5,
   }
 });
