@@ -29,6 +29,8 @@ export function ThemedText({
         style,
       ]}
       {...rest}
+      selectable={true}
+      selectionColor='orange'
     />
   );
 }

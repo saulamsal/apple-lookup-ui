@@ -1,5 +1,6 @@
+import 'react-native-get-random-values';
 import { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Pressable, Text } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, Image, ScrollView, Pressable, Text, Platform } from 'react-native';
 import { router } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -31,6 +32,93 @@ const topStories = [
     subtitle: 'Airline to offer premium burger service on select flights'
   }
 ];
+
+interface WebTextProps {
+  style: any;
+  children: React.ReactNode;
+}
+
+const WebText = ({ style, children }: WebTextProps) => (
+  Platform.OS === 'web'
+    ? (
+      <span
+        style={{
+          ...StyleSheet.flatten(style),
+          cursor: 'text',
+          userSelect: 'text',
+          WebkitUserSelect: 'text',
+          MozUserSelect: 'text',
+          msUserSelect: 'text',
+          display: 'block',
+          fontFamily: style.fontFamily || 'inherit'
+        }}
+      >
+        {children}
+      </span>
+    )
+    : <Text style={style}>{children}</Text>
+);
+
+interface SelectableTextProps {
+  style?: any;
+  children: React.ReactNode;
+}
+
+const SelectableText = ({ children, style }: SelectableTextProps) => {
+  const handleContextMenu = (e: any) => {
+    if (Platform.OS === 'web') {
+      const selection = window.getSelection()?.toString();
+      if (selection) {
+        // You can customize this menu further
+        const menu = document.createElement('div');
+        menu.innerHTML = `
+          <div style="position: fixed; background: white; border: 1px solid #ccc; padding: 5px;">
+            <div>Copy</div>
+            <div>Look Up</div>
+          </div>
+        `;
+        document.body.appendChild(menu);
+        // Position menu at cursor
+        menu.style.left = `${e.pageX}px`;
+        menu.style.top = `${e.pageY}px`;
+
+        // Remove menu when clicking outside
+        const removeMenu = () => {
+          document.body.removeChild(menu);
+          document.removeEventListener('click', removeMenu);
+        };
+        document.addEventListener('click', removeMenu);
+      }
+    }
+  };
+
+  if (Platform.OS === "ios") {
+    return (
+      <TextInput
+        multiline
+        editable={false}
+        style={style}
+        contextMenuHidden={false}
+        selectionColor="rgba(51, 102, 204, 0.2)"
+        selectTextOnFocus={true}
+        menuItems={[
+          { title: 'Look Up', systemIcon: 'doc.text.magnifyingglass' }
+        ]}
+      >
+        {children}
+      </TextInput>
+    );
+  }
+  return (
+    <Text
+      selectable
+      style={style}
+      onContextMenu={handleContextMenu}
+    >
+      {children}
+    </Text>
+  );
+};
 
 export default function HomeScreen() {
   const [query, setQuery] = useState('');
@@ -85,12 +173,12 @@ export default function HomeScreen() {
           <ThemedText style={styles.topStoriesTitle}>Top Stories From ExpoPedia</ThemedText>
           {topStories.map((story) => (
             <ThemedView key={story.id} style={styles.storyItem}>
-              <Text selectable style={[styles.storyTitle, { color: '#000' }]}>
+              <SelectableText style={styles.storyTitle}>
                 {story.title.replace(/_/g, ' ')}
-              </Text>
-              <Text selectable style={[styles.storySubtitle, { color: '#666' }]}>
+              </SelectableText>
+              <SelectableText style={styles.storySubtitle}>
                 {story.subtitle}
-              </Text>
+              </SelectableText>
             </ThemedView>
           ))}
         </ThemedView>
