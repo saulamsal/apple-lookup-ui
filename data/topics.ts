@@ -10,6 +10,12 @@ export interface Topic {
 }
 
 export const topics: Record<string, Topic> = {
+    saul_sharma: {
+        id: 'saul_sharma',
+        name: 'Saúl Sharma',
+        image: 'https://pbs.twimg.com/profile_images/1776070739319214080/TBARcp9C_400x400.jpg',
+        description: 'Hey folks! 👋',
+    },
     wwe: {
         id: 'wwe',
         name: 'WWE',

@@ -11,7 +11,12 @@ const topStories = [
     id: '1',
     title: 'Linda_McMahon_Selected_as_Secretary_of_Education_Nominee',
     subtitle: 'Former WWE executive chosen to lead department President Donald Trump plans to dissolve',
-    relatedTopics: ['wwe', 'trump']
+    relatedTopics: ['wwe', 'trump'],
+    author: {
+      name: "Saúl Sharma",
+      image: 'https://pbs.twimg.com/profile_images/1776070739319214080/TBARcp9C_400x400.jpg',
+      id: 'saul_sharma'
+    }
   },
   {
     id: '2',
@@ -98,6 +103,20 @@ export default function HomeScreen() {
               <ThemedText style={styles.storySubtitle}>
                 {story.subtitle}
               </ThemedText>
+              {story.author && (
+                <TouchableOpacity
+                  onPress={() => router.push(`/look-up/${story.author.id}`)}
+                  style={styles.authorContainer}
+                >
+                  <Image
+                    source={{ uri: story.author.image }}
+                    style={styles.authorImage}
+                  />
+                  <ThemedText style={styles.authorText}>
+                    By <ThemedText style={styles.authorName}>{story.author.name}</ThemedText>
+                  </ThemedText>
+                </TouchableOpacity>
+              )}
               <FlatList
                 data={story.relatedTopics}
                 horizontal
@@ -237,5 +256,23 @@ const styles = StyleSheet.create({
   topicText: {
     fontSize: 13,
     color: '#666',
+  },
+  authorContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  authorImage: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginRight: 6,
+  },
+  authorText: {
+    fontSize: 13,
+    color: '#666',
+  },
+  authorName: {
+    fontWeight: '600',
   }
 });
