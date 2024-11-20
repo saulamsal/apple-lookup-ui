@@ -4,7 +4,7 @@ import { Image, StyleSheet, ActivityIndicator, SafeAreaView, Animated } from 're
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { FormattedText, ParsedContent, WikiResponse, parseWikiText } from '@/utils/wiki';
-
+import { Stack } from 'expo-router';
 export default function WikiArticle() {
     const { key } = useLocalSearchParams<{ key: string }>();
     const [wikiContent, setWikiContent] = useState<ParsedContent | null>(null);
@@ -49,13 +49,7 @@ export default function WikiArticle() {
     const renderHeader = () => (
         <ThemedView style={styles.stickyHeader}>
             <SafeAreaView>
-                <ThemedView style={styles.headerContent}>
-                    <Image
-                        source={{ uri: 'https://i.imgur.com/zKpiUj6.png' }}
-                        style={styles.logo}
-                        resizeMode="contain"
-                    />
-                </ThemedView>
+
             </SafeAreaView>
         </ThemedView>
     );
@@ -82,7 +76,14 @@ export default function WikiArticle() {
 
     return (
         <ThemedView style={styles.container}>
-            {renderHeader()}
+            <Stack.Screen options={{
+                headerShown: true,
+                headerTitle: key.replace(/_/g, ' '),
+                headerLargeTitle: true,
+                headerBackTitle: '',
+
+            }} />
+
             <SafeAreaView style={styles.contentContainer}>
                 <Animated.ScrollView
                     style={styles.scrollView}
@@ -156,18 +157,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#e0e0e0',
     },
-    headerContent: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 10,
-        paddingHorizontal: 16,
-        height: 44,
-    },
-    logo: {
-        width: 120,
-        height: 24,
-        marginRight: 8,
-    },
+
     headerTitle: {
         fontSize: 18,
         fontWeight: '500',

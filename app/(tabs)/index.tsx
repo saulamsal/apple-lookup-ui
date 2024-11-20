@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native';
 import { router } from 'expo-router';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
@@ -23,8 +23,14 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.container}>
       <ThemedView style={styles.searchContainer}>
-        <ThemedText style={styles.title}>ExpoPedia</ThemedText>
-        <ThemedText style={styles.subtitle}>Search Wikipedia articles</ThemedText>
+        <ThemedView style={styles.headerContent}>
+          <Image
+            source={{ uri: 'https://i.imgur.com/zKpiUj6.png' }}
+            style={styles.logo}
+            resizeMode="contain"
+          />
+
+        </ThemedView>        <ThemedText style={styles.subtitle}>Search Wikipedia articles</ThemedText>
 
         <TextInput
           style={styles.searchInput}
@@ -91,5 +97,18 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  headerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    paddingHorizontal: 16,
+    height: 44,
+  },
+
+  logo: {
+    width: 180,
+    height: 50,
+    marginRight: 8,
   },
 });
