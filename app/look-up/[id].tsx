@@ -1,14 +1,16 @@
 import { useLocalSearchParams } from 'expo-router';
-import { StyleSheet, Linking, ScrollView, Pressable, Image } from 'react-native';
+import { StyleSheet, Linking, ScrollView, Pressable, Image, Dimensions } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { topics } from '@/data/topics';
 import { Stack } from 'expo-router';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+
 export default function LookUp() {
     const { id } = useLocalSearchParams<{ id: string }>();
     const topic = topics[id];
+    const { height } = Dimensions.get('window');
 
     if (!topic) {
         return (
@@ -117,7 +119,7 @@ export default function LookUp() {
     };
 
     return (
-        <ThemedView style={styles.container}>
+        <ThemedView style={[styles.container, { minHeight: height }]}>
             <Stack.Screen options={{
                 headerTitle: topic.name,
                 headerRight: () => (

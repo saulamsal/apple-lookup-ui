@@ -19,7 +19,7 @@ export const topics: Record<string, Topic> = {
     wwe: {
         id: 'wwe',
         name: 'WWE',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/WWE_Logo.svg/150px-WWE_Logo.svg.png',
+        logo: 'https://i.etsystatic.com/49082931/r/il/a3cc85/6072865437/il_fullxfull.6072865437_n4l9.jpg',
         description: 'World Wrestling Entertainment, Inc. is an American professional wrestling promotion.',
         facts: {
             'Founded': 'February 21, 1980',
@@ -82,7 +82,7 @@ export const topics: Record<string, Topic> = {
     spacex: {
         id: 'spacex',
         name: 'SpaceX',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/SpaceX-Logo-Xonly.svg/150px-SpaceX-Logo-Xonly.svg.png',
+        logo: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaacHOdgQEXrh2HQDzGfyBRnIDxr9m-DipmA&s',
         description: 'American aerospace manufacturer and space transport company',
         facts: {
             'Founded': 'March 14, 2002',
@@ -161,7 +161,7 @@ export const topics: Record<string, Topic> = {
     nadal: {
         id: 'nadal',
         name: 'Rafael Nadal',
-        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Rafael_Nadal_10%2C_Aegon_Championships%2C_London%2C_UK_-_Diliff.jpg/150px-Rafael_Nadal_10%2C_Aegon_Championships%2C_London%2C_UK_-_Diliff.jpg',
+        image: 'https://www.atptour.com/-/media/alias/player-headshot/n409',
         description: 'Spanish professional tennis player',
         facts: {
             'Born': 'June 3, 1986',
@@ -183,7 +183,7 @@ export const topics: Record<string, Topic> = {
     'davis-cup': {
         id: 'davis-cup',
         name: 'Davis Cup',
-        logo: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7e/Davis_Cup_logo.svg/150px-Davis_Cup_logo.svg.png',
+        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Davis_Cup_Praha_%C4%8CRo_2012-11-28_cropped_1.jpg/1200px-Davis_Cup_Praha_%C4%8CRo_2012-11-28_cropped_1.jpg',
         description: 'Premier international team event in men\'s tennis',
         facts: {
             'Founded': '1900',

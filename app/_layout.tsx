@@ -38,7 +38,8 @@ export default function RootLayout() {
           // headerShown: false,
           sheetGrabberVisible: true,
           sheetInitialDetentIndex: 0,
-          sheetAllowedDetents: [0.5, 1.0]
+          sheetAllowedDetents: [0.5, 1.0],
+
         }} />
 
         <Stack.Screen name="+not-found" />

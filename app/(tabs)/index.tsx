@@ -130,12 +130,12 @@ export default function HomeScreen() {
                       style={styles.topicChip}
                       onPress={() => router.push(`/look-up/${topicId}`)}
                     >
-                      {topic?.logo && (
-                        <Image
-                          source={{ uri: topic.logo }}
-                          style={styles.topicIcon}
-                        />
-                      )}
+
+                      <Image
+                        source={{ uri: topic.logo || topic.image }}
+                        style={styles.topicIcon}
+                      />
+
                       <ThemedText style={styles.topicText}>{topic.name}</ThemedText>
                     </TouchableOpacity>
                   );
@@ -243,13 +243,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
     borderRadius: 16,
-    paddingHorizontal: 12,
+    paddingHorizontal: 6,
+    paddingRight: 12,
     paddingVertical: 6,
     marginRight: 8,
   },
   topicIcon: {
-    width: 16,
-    height: 16,
+    width: 22,
+    height: 22,
     borderRadius: 8,
     marginRight: 6,
   },
