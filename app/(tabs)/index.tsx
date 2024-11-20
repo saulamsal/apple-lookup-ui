@@ -197,7 +197,7 @@ export default function HomeScreen() {
             style={styles.logo}
             resizeMode="contain"
           />
-          <ThemedText style={styles.headerTitle}>Wikipedia</ThemedText>
+          {/* <ThemedText style={styles.headerTitle}>Wikipedia</ThemedText> */}
         </ThemedView>
       </SafeAreaView>
     </ThemedView>
@@ -307,8 +307,8 @@ const styles = StyleSheet.create({
     height: 44,
   },
   logo: {
-    width: 24,
-    height: 24,
+    width: 150,
+    height: 50,
     marginRight: 8,
   },
   headerTitle: {
